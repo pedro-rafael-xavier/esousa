@@ -1,0 +1,14 @@
+# Local development
+/.vscode/
+/.idea/
+
+# XAMPP / local files
+*.log
+
+# Environment / secrets
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db

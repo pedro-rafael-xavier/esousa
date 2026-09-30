@@ -1,0 +1,30 @@
+RewriteEngine On
+
+# --------------------------------------------------
+# 1. Remove trailing slash from clean URLs
+# --------------------------------------------------
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+# --------------------------------------------------
+# 2. Redirect direct .php URLs to clean URLs
+# --------------------------------------------------
+
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.php(?:[?\s]) [NC]
+RewriteRule ^(.+)\.php$ /$1 [R=301,L,NE]
+
+# --------------------------------------------------
+# 3. Internally map clean URLs to PHP files
+# --------------------------------------------------
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.php -f
+RewriteRule ^(.+?)/?$ $1.php [L]
+
+# --------------------------------------------------
+# 4. Custom 404
+# --------------------------------------------------
+
+ErrorDocument 404 /404.php
